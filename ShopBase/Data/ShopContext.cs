@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Search.Data
+namespace ShopBase.Data
 {
     public partial class ShopContext : DbContext
     {
@@ -39,10 +39,12 @@ namespace Search.Data
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CodKpgz).HasColumnName("CodKPGZ");
 
                 entity.HasOne(d => d.Category)
-                    .WithMany()
+                    .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("CategoryId");
