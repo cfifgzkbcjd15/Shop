@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,38 +7,59 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Shop.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<style type="text/css">
+    @@font-face {
+    font-family: adineueprocyr_lightweb;
+    src: url(@Url.Content("~/Content/fonts/adineueprocyr_lightweb.ttf"));
+    }
+    @@font-face {
+    font-family: adineueprocyr_boldweb;
+    src: url(@Url.Content("~/Content/fonts/adineueprocyr_boldweb.ttf"));
+    }
+
+    .bgImage 
+    {
+    height: 400px;
+    width: 100%;
+    opacity: 1;
+    background-image: url(@Url.Content("~/Content/img/bgImage.jpg"));
+    }
+</style>
 </head>
-<body>
+<body class="adineueprocyr_b">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Shop</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+        <a class="navbar-brand" href="#">
+            <svg width="42" height="42" xmlns="http://www.w3.org/2000/svg">
+            <g>
+                <title>Layer 1</title>
+                <g stroke="null" id="svg_9">
+                <ellipse stroke="#000000" fill-opacity="0" stroke-width="2" ry="14.4929" rx="18.00918" id="svg_2" cy="21.41661" cx="20.726" fill="#000000"/>
+                <text stroke="#000" transform="matrix(0.379141 0 0 0.402581 -22.6101 -9.01617)" font-weight="bold" font-style="normal" xml:space="preserve" text-anchor="start" font-family="sans-serif" font-size="58" stroke-width="0" id="svg_4" y="66.28754" x="75.82915" fill="#000000">JS</text>
+                <text stroke="#000" font-style="normal" transform="matrix(0.655876 -1.00962 0.600182 0.439593 -330.643 233.728)" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="'Calistoga'" font-size="58" id="svg_6" y="260.53152" x="301.12332" stroke-width="0" fill="#000000">#</text>
+                </g>
+            </g>
+            </svg>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav" id="ulNavbarNav">
+            <!-- app -->
+            </ul>
+        </div>
+      </div>
+    </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
             @RenderBody()
-        </main>
-    </div>
+        
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

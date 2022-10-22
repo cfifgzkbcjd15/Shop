@@ -33,7 +33,9 @@ namespace Shop.Code
             db.Categories.RemoveRange(db.Categories);
             db.Products.RemoveRange(db.Products);
             db.SaveChanges();
-            while (sheet.GetRow(rowIndex) != null&&rowIndex<1000)
+            while (sheet.GetRow(rowIndex) != null
+                //&&rowIndex<45000
+                )
             {
                 var categoryName = sheet.GetRow(rowIndex).GetCell(2).ToString();
                 var checkCategory= categoryList.FirstOrDefault(x => x.Name == categoryName);
