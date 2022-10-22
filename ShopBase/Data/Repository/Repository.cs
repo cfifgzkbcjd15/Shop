@@ -18,33 +18,37 @@ namespace ShopBase.Data.Repository
         }
         public List<Product> GetProducts(FilterModel filter)
         {
-            var data=new List<Product>();
+            var data = new List<Product>();
             var pageSize = 10;
             var count = 0;
-            foreach(var item in filter.Text)
+            foreach (var item in filter.Text)
             {
                 var model = db.Products.Where(x => x.Name.Contains(item)).ToList();
                 if (model != null)
                 {
-                    count = model.Count();
-                    if (count >= 10)
+                    count += model.Count();
+                    data.AddRange(model);
+                }
+            }
+            if (count >= 10)
+            {
+                return data.Skip(filter.Page * pageSize).Take(filter.Page * pageSize).ToList();
+            }
+            else
+            {
+                foreach (var item in filter.Text)
+                {
+                    var model = db.Products.Include(x => x.Category).Where(x => x.Category.Name.Contains(item)).ToList();
+                    if (model != null)
                     {
                         data.AddRange(model);
-                        break;
                     }
-                    else
-                    {
-                        model= db.Products.Include(x => x.Category).Where(x => x.Category.Name.Contains(item)).ToList();
-                        if (model != null)
-                        {
-                            data.AddRange(model);
-                        }
-                    }
-                    
                 }
             }
             return data.Skip(filter.Page * pageSize).Take(filter.Page * pageSize).ToList();
+
         }
     }
+
 }
 
