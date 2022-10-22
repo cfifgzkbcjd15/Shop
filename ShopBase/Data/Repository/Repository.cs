@@ -1,8 +1,10 @@
-﻿using ShopBase.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopBase.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ShopBase.Data.Repository
@@ -18,15 +20,30 @@ namespace ShopBase.Data.Repository
         {
             var data=new List<Product>();
             var pageSize = 10;
+            var count = 0;
             foreach(var item in filter.Text)
             {
-                var model = db.Products.Where(x => x.Name == item).ToList();
+                var model = db.Products.Where(x => x.Name.Contains(item)).ToList();
                 if (model != null)
                 {
-                    data.AddRange(model);
+                    count = model.Count();
+                    if (count >= 10)
+                    {
+                        data.AddRange(model);
+                        break;
+                    }
+                    else
+                    {
+                        model= db.Products.Include(x => x.Category).Where(x => x.Category.Name.Contains(item)).ToList();
+                        if (model != null)
+                        {
+                            data.AddRange(model);
+                        }
+                    }
+                    
                 }
             }
-            return data;
+            return data.Skip(filter.Page * pageSize).Take(filter.Page * pageSize).ToList();
         }
     }
 }
