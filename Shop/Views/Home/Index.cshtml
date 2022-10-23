@@ -20,12 +20,13 @@
               Вы покупатель
             </button>            
             <div class="row mt-3">
-              <div id="hintText" class="form-floating" >
+              <div id="hintText" class="form-floating input-group flex-nowrap" >
                   @*onmousedown="document.querySelectorAll('#hintText p').forEach(x=>x.style.display='none')"*@
-                <input type="search" class="form-control" id="searchInputMain" placeholder="Поиск">
+                <input type="search" class="form-control" id="searchInputMain" placeholder="Поиск" aria-describedby="addon-wrapping"/>
+                <button class=" btn btn-gradient" id="addon-wrapping">Поиск</button>
                 <label for="searchInputMain">Поиск</label>
+            </div>
                 <div class="container-fluid bgInputBotom" id="inputBottom">
-                </div>
               </div>
             </div>
           </form>
@@ -34,7 +35,7 @@
       </div>
 </div>
 
-<div class="container-xxl pt-4">
+<div class="container-xl pt-4">
     <h2 class="mb-4 title">Все поставщики по категориям</h2>
     <div class="row" id="rowAddCard">
 @*            <div class="card" style="width: 18rem;">

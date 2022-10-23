@@ -36,44 +36,27 @@ $(function () {
         `);
     };*/
 
-    let [inputId, inputValue, inputLang, inputBottom] = [$("#searchInputMain"), "", "", $("#inputBottom")];
+    let [inputId, inputValue, inputBottom] = [$("#searchInputMain"), "", $("#inputBottom")];
     let inputValueMas = '';
-    /*var timerId = setTimeout(function () {*/
+
         inputId.keyup(function () {
             inputValue = inputId.val();
-
-            //if (inputValue.match(/[a - Z]/) == null) { inputLang = "ru-en" } else { inputLang = "en-ru" };
 
             console.log(inputValueMas)
 
             let link = `https://localhost:7262/api/Products?text=${inputValue}&page=${page}`;
-            //console.log(`Text send ${inputValue}, leng ${inputLang} link ${link}`);
 
-            if (inputValue != '') { inputBottom.show(); } else { inputBottom.hide(); };
+            if (inputValue != '' ) { inputBottom.show(); } else { inputBottom.hide(); };
             getHint(inputValue, link);
-
         })
-    ////}, 1000);
-    ////while (timerId--) {
-    ////    window.clearTimeout(timerId); // will do nothing if no timeout with id is present
-    ////}
-    
-    
-    //const options = {
-    //    rootMargin: "0px",
-    //    threshold: 1.0,
-    //};
-    //const callback = (entries, observer) => {
-    //    if (page > 0 && entries[0].isIntersecting) {
-            
-    //        sendMessage(link);
-    //        console.log("asdasdasdasdasdas")
-    //    }
-    //};
-    //const observer = new IntersectionObserver(callback, options);
-    //let target = document.querySelector('#observer');
-    //observer.observe(target);
+
+    $("body").on('click', function () {
+        inputBottom.hide();
+    });
 });
+
+
+
 function sendMessage(link) {
     $.ajax({
         url: link,
@@ -82,9 +65,6 @@ function sendMessage(link) {
         dataType: 'json',
         success: function (data) {
             addCardMain(data);
-            //page += 1;
-            //if (data != null && data.length>0)
-            //    countProduct = data.containsProducts.length
             
         }
     });
@@ -97,7 +77,6 @@ function getHint(text,link){
         dataType: 'json',
         success: function (data) {
             addHint(data);
-            sendMessage(link);
         }
     });
     
@@ -115,10 +94,12 @@ function addHint(data) {
     if (data != null && data.length > 0)
         data.forEach(x => {
             if (x.name != document.querySelector("#searchInputMain").value)
-                $("#inputBottom").append(`<p onclick="editInputValue(event)">${x.name}</p>`)
+                $("#inputBottom").append(`<p onclick="editInputValue(event)" class="mb-1">${x.name}</p>`)
         })
 
 }
+
+
 
 function addCardMain(data) {
     console.log(`${data}`)
@@ -126,7 +107,7 @@ function addCardMain(data) {
     rowAddCard.empty();
     for (let x in data) {
         rowAddCard.append(`
-            <div class="card-${data[x].id} me-2 mb-2" style="width: 18rem; background: ${x % 2 === 0 ? bgGrey : bgDarkGrey}; color: white;">
+            <div class="card-${data[x].id} me-2 mb-2" style="width: 15rem; background: ${x % 2 === 0 ? bgGrey : bgDarkGrey}; color: white;">
               <div class="card-body">
                 <h5 class="card-title">${data[x].name}</h5>
               </div>

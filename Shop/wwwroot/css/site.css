@@ -140,4 +140,7 @@ li > a {
 .bgInputBotom {
     display: none;
     background: white;
+    border-radius: 0.375rem;
+    z-index: 999;
+    width: 97%;
 }
