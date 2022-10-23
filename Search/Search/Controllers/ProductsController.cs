@@ -16,7 +16,7 @@ namespace Search.Controllers
             db = _db;
         }
         [HttpGet]
-        public List<ProductViewModel> GetProducts([FromQuery] string text, [FromQuery] int page, [FromQuery] bool hite)
+        public async Task<List<ProductViewModel>> GetProducts([FromQuery] string text, [FromQuery] int page, [FromQuery] bool hite)
         {
             //var pageSize = 10;
             //var product = new List<Product>();
@@ -88,11 +88,11 @@ namespace Search.Controllers
             //textMas=text.Split(" ").Where(x => x != null && x != "").ToList()
             if (hite)
             {
-                return db.Products
+                return await db.Products
                     .Where(x => x.Name.ToLower().Contains(text.ToLower()))
                     .Skip(pageSize * page).Take(pageSize)
                     .Select(x => new ProductViewModel { Name = x.Name })
-                    .ToList();
+                    .ToListAsync();
             }
             else
             {
@@ -123,24 +123,24 @@ namespace Search.Controllers
                 text = string.Join(" ", newMas);
                 var product = new List<ProductViewModel>();
 
-                foreach (var category in db.Categories.ToList())
+
+                foreach (var item in newMas)
                 {
-                    foreach (var item in newMas)
+                    foreach (var category in db.Categories.ToList())
                     {
                         if (category.Name.ToLower().Contains(item.ToLower()))
                         {
-                            
+
                             if (newMas.Count() > 1)
                             {
-                                products = db.Products
+                                products = await db.Products
                                 .Where(x =>
                                 x.CategoryId == category.Id
                                 && x.Name.ToLower().Contains(newMas[1].ToLower()) && x.Name.ToLower().Contains(newMas[0].ToLower()))
-                                //.Where(x => x.Name.ToLower().Contains(item.ToLower()))
                                 .Skip(pageSize * page)
                                 .Take(pageSize)
-                                .Select(x => new ProductViewModel { Name = x.Name })
-                                .ToList();
+                                .Select(x => new ProductViewModel { Name = x.Name }).AsNoTracking()
+                                .ToListAsync();
                                 if (products != null)
                                 {
                                     product.AddRange(products);
@@ -148,46 +148,28 @@ namespace Search.Controllers
                             }
                             else
                             {
-                                products = db.Products
+                                products = await db.Products
                                 .Where(x => x.CategoryId == category.Id && x.Name.ToLower().Contains(item.ToLower())).Skip(pageSize * page)
-                                .Take(pageSize).Select(x => new ProductViewModel { Name = x.Name }).ToList();
+                                .Take(pageSize).Select(x => new ProductViewModel { Name = x.Name }).AsNoTracking().ToListAsync();
                                 if (products != null)
                                 {
                                     product.AddRange(products);
                                 }
                             }
 
-                            //var fullProduct = db.Products
-                            //    .Where(x => x.Name.ToLower().Contains(text.ToLower())).Skip(pageSize * page)
-                            //    .Take(pageSize).Select(x => new ProductViewModel { Name = x.Name }).ToList();
-
-                            //if (fullProduct != null)
-                            //{
-                            //    products.AddRange(fullProduct
-                            //       .Select(x => new ProductViewModel { Name = x.Name })
-                            //       .ToList()
-                            //       );
-                            //}
-                            //if (product != null)
-                            //{
-                            //    products.AddRange(product
-                            //        .Select(x => new ProductViewModel { Name = x.Name })
-                            //        .ToList()
-                            //        );
-                            //}
-
                         }
                         else
                         {
-                            products = db.Products
+                            products = await db.Products
                                 .Where(x => x.Name.ToLower().Contains(item.ToLower()))
                                 .Skip(pageSize * page)
                                 .Take(pageSize)
                                 .Select(x => new ProductViewModel { Name = x.Name })
-                                .ToList();
+                                .AsNoTracking()
+                                .ToListAsync();
                             if (products != null)
                             {
-                                product.AddRange(product
+                                product.AddRange(products
                                     .Select(x => new ProductViewModel { Name = x.Name })
                                     .ToList()
                                     );
@@ -209,7 +191,7 @@ namespace Search.Controllers
         [HttpGet("GetSearchString")]
         public async Task<List<Product>> GetSearchString(string text)
         {
-            var firstProduct = await db.Products.Where(x => x.Name.ToLower().Contains(text.ToLower())).Take(10).Select(x => new Product
+            var firstProduct = await db.Products.Where(x => x.Name.ToLower().Contains(text.ToLower())).Take(10).AsNoTracking().Select(x => new Product
             {
                 Id = x.Id,
                 Name = x.Name

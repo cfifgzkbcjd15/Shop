@@ -57,7 +57,11 @@ $(function () {
 
 
 
-function sendMessage(link) {
+function sendMessage(hite = false) {
+    inputValue = document.querySelector("#searchInputMain").value;
+    var link = `https://localhost:7262/api/Products?text=${inputValue}&page=${page}`
+    if (hite)
+        link += "&hite=true";
     $.ajax({
         url: link,
         method: 'get',
