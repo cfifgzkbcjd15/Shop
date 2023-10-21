@@ -1,4 +1,4 @@
-using ShopBase.Data;
+using ShopBase.newData;
 
 var builder = WebApplication.CreateBuilder(args);
 

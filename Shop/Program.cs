@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http.Features;
 using Shop.Code;
 using ShopBase.Data;
+using ShopBase.newData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddScoped<IDownload, DownloadExcel>();
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ShopContext>();
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<bugZillaContext>();
 builder.Services.Configure<FormOptions>(x =>
 {
     x.ValueLengthLimit = int.MaxValue;

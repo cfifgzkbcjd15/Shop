@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ShopBase.Data
+namespace ShopBase.newData
 {
     public partial class ShopContext : DbContext
     {

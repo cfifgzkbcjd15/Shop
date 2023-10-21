@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ShopBase.Data
+namespace ShopBase.newData
 {
     public partial class Product
     {

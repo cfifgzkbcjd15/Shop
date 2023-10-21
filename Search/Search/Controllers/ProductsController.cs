@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Search.Models;
-using ShopBase.Data;
+using ShopBase.newData;
 
 namespace Search.Controllers
 {
@@ -169,6 +169,7 @@ namespace Search.Controllers
                                 .ToListAsync();
                             if (products != null)
                             {
+                                
                                 product.AddRange(products
                                     .Select(x => new ProductViewModel { Name = x.Name })
                                     .ToList()

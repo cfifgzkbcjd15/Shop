@@ -57,7 +57,10 @@ $(function () {
 
 
 
-function sendMessage(hite = false) {
+function sendMessage(hite) {
+    if (hite == null || hite== "") {
+        hite=false
+    }
     inputValue = document.querySelector("#searchInputMain").value;
     var link = `https://localhost:7262/api/Products?text=${inputValue}&page=${page}`
     if (hite)
@@ -90,7 +93,7 @@ function editInputValue(event) {
     document.querySelector("#searchInputMain").value = event.srcElement.innerText;
     let inputValueMas = document.querySelector("#searchInputMain").value;
     let link = `https://localhost:7262/api/Products?text=${inputValueMas}&page=${page}`;
-    sendMessage(link);
+    sendMessage(true);
 }
 function addHint(data) {
     /*console.log(data)*/

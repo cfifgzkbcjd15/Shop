@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace ShopBase.Data
+namespace ShopBase.newData
 {
     public partial class Category
     {
@@ -13,7 +13,7 @@ namespace ShopBase.Data
 
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        [System.Text.Json.Serialization.JsonIgnore]
+        [JsonIgnore]
         public virtual ICollection<Product> Products { get; set; }
     }
 }
